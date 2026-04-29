@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ezek — Arcane Style 3D Bust | Character Design · 3D.GRYZ</title>
+    <meta name="description" content="Кейс: 3D-бюст в стиле сериала Arcane. Полный пайплайн — концептинг, скульпт, ретопология, текстуры, рендер. Сделано через AI + 3D в гибридном пайплайне.">
+    <meta property="og:title" content="EZEK — Arcane-style 3D Bust · 3D.GRYZ">
+    <meta property="og:description" content="3D-бюст в стиле Arcane (League of Legends): концепт-эксплорация, скульпт, текстуринг, эмоции и поз-шит.">
+    <meta property="og:image" content="05_Rendering/Cover/02_banner_face.webp">
+    <meta property="og:type" content="website">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --hex-cyan:    #2CD9FF;
+            --chem-orange: #FF6B1A;
+            --shimmer:     #B847FF;
+            --gold:        #FFB347;
+            --bg:          #07090e;
+            --bg-card:     #0e131c;
+            --bg-darker:   #050609;
+            --text:        #f5f5f5;
+            --text-muted:  rgba(255,255,255,0.55);
+            --text-soft:   rgba(255,255,255,0.78);
+            --border:      rgba(255,255,255,0.07);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow: hidden;
+            background: var(--bg-darker);
+            min-height: 580px;
+            display: flex;
+            align-items: flex-end;
+        }
+        .hero img { width: 100%; display: block; object-fit: cover; }
+        .hero-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 140px 60px 50px;
+            background: linear-gradient(transparent, rgba(7,9,14,0.97) 70%);
+        }
+        .hero-overlay .eyebrow {
+            display: inline-block;
+            padding: 5px 14px;
+            border: 1px solid rgba(44,217,255,0.35);
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            color: var(--hex-cyan);
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+        .hero-overlay h1 {
+            font-size: 64px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--hex-cyan) 0%, #ffffff 60%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-overlay h1 .small {
+            display: block;
+            font-size: 24px;
+            font-weight: 400;
+            margin-top: 10px;
+            letter-spacing: -0.3px;
+            -webkit-text-fill-color: var(--text-soft);
+            color: var(--text-soft);
+        }
+        .hero-overlay .subtitle {
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--text-muted);
+            max-width: 680px;
+            line-height: 1.7;
+            margin-top: 6px;
+        }
+
+        /* ── Palette ── */
+        .palette { display: flex; height: 6px; }
+        .palette div { flex: 1; }
+
+        /* ── Info bar ── */
+        .info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 36px 60px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-darker);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .info-item { text-align: center; flex: 1; min-width: 120px; }
+        .info-item .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: rgba(255,255,255,0.28);
+            margin-bottom: 8px;
+        }
+        .info-item .value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-soft);
+        }
+        .info-item .value.accent { color: var(--hex-cyan); }
+        .info-item .value.amber { color: var(--gold); }
+
+        /* ── Section heading ── */
+        .section-text {
+            padding: 80px 60px 40px;
+            max-width: 920px;
+        }
+        .section-text .step {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--hex-cyan);
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        .section-text h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            color: #fff;
+            letter-spacing: -0.6px;
+            line-height: 1.15;
+        }
+        .section-text h2 em {
+            font-style: normal;
+            color: var(--hex-cyan);
+        }
+        .section-text p {
+            font-size: 15px;
+            line-height: 1.75;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+        .section-text p + p { margin-top: 14px; }
+
+        /* ── Tags ── */
+        .tags { padding: 0 60px 40px; }
+        .tag {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            letter-spacing: 0.4px;
+        }
+        .tag-cyan   { background: rgba(44,217,255,0.12); color: var(--hex-cyan); border: 1px solid rgba(44,217,255,0.22); }
+        .tag-amber  { background: rgba(255,179,71,0.10); color: var(--gold); border: 1px solid rgba(255,179,71,0.22); }
+        .tag-purple { background: rgba(184,71,255,0.10); color: var(--shimmer); border: 1px solid rgba(184,71,255,0.22); }
+        .tag-white  { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); border: 1px solid var(--border); }
+
+        /* ── Frame ── */
+        .frame { width: 100%; position: relative; background: var(--bg-darker); }
+        .frame img, .frame video { width: 100%; display: block; }
+        .frame-label {
+            position: absolute;
+            top: 18px; left: 18px;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 7px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .frame-label span { color: var(--hex-cyan); margin-right: 8px; font-weight: 400; }
+
+        /* ── Grids ── */
+        .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+        .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; }
+        .four-col  { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
+        .six-col   { display: grid; grid-template-columns: repeat(6,1fr); gap: 3px; }
+
+        .two-col .frame img,
+        .three-col .frame img,
+        .four-col .frame img,
+        .six-col .frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* ── Frame description ── */
+        .frame-desc {
+            padding: 36px 60px 24px;
+            display: flex;
+            align-items: baseline;
+            gap: 22px;
+        }
+        .frame-desc .num {
+            font-size: 56px;
+            font-weight: 900;
+            color: rgba(44,217,255,0.10);
+            line-height: 1;
+            flex-shrink: 0;
+            font-family: 'Inter', sans-serif;
+        }
+        .frame-desc .text h3 {
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 7px;
+            color: rgba(255,255,255,0.95);
+        }
+        .frame-desc .text p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* ── Stat strip ── */
+        .stat-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3px;
+            padding: 0 60px 50px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px 26px;
+        }
+        .stat-card .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--hex-cyan);
+            line-height: 1;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .stat-card .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ── PBR Maps grid ── */
+        .pbr-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 3px;
+            padding: 0 0 0 0;
+        }
+        .pbr-card {
+            background: var(--bg-darker);
+            position: relative;
+            overflow: hidden;
+        }
+        .pbr-card img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            display: block;
+        }
+        .pbr-card .pbr-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            padding: 5px 10px;
+            font-size: 10px;
+            color: var(--hex-cyan);
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
+
+        /* ── Pipeline timeline ── */
+        .pipeline {
+            padding: 0 60px 50px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 3px;
+            position: relative;
+        }
+        .pipeline-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 22px;
+            position: relative;
+        }
+        .pipeline-step::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--hex-cyan), var(--shimmer));
+            opacity: 0.4;
+        }
+        .pipeline-step .ps-num {
+            font-size: 9px;
+            color: var(--hex-cyan);
+            letter-spacing: 2.5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .pipeline-step .ps-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.92);
+            margin-bottom: 5px;
+        }
+        .pipeline-step .ps-desc {
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* ── 3D viewer placeholder ── */
+        .viewer-block {
+            padding: 0 60px 50px;
+        }
+        .viewer-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            aspect-ratio: 16/9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(44,217,255,0.06), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(184,71,255,0.06), transparent 50%);
+        }
+        .viewer-card .viewer-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(44,217,255,0.08);
+            border: 1px solid rgba(44,217,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        .viewer-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+        }
+        .viewer-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 480px;
+            line-height: 1.6;
+        }
+        .viewer-card .viewer-hint {
+            font-size: 11px;
+            color: var(--hex-cyan);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* ── Tools grid ── */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3px;
+            padding: 0 60px 50px;
+        }
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px;
+        }
+        .tool-card .tool-icon {
+            font-size: 22px;
+            margin-bottom: 12px;
+            opacity: 0.8;
+        }
+        .tool-card .tool-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 5px;
+        }
+        .tool-card .tool-role {
+            font-size: 11px;
+            color: var(--hex-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .tool-card .tool-desc {
+            font-size: 12px;
+            line-height: 1.65;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* ── Quote ── */
+        .quote-block {
+            padding: 50px 60px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-darker);
+        }
+        .quote-block .q-mark {
+            font-size: 70px;
+            line-height: 0.7;
+            color: var(--hex-cyan);
+            opacity: 0.35;
+            flex-shrink: 0;
+            font-family: Georgia, serif;
+        }
+        .quote-block .q-text {
+            font-size: 22px;
+            font-weight: 300;
+            line-height: 1.55;
+            color: rgba(255,255,255,0.82);
+            font-style: italic;
+        }
+        .quote-block .q-author {
+            margin-top: 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--hex-cyan);
+            font-style: normal;
+            letter-spacing: 1px;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: 70px 40px 60px;
+            border-top: 1px solid var(--border);
+            color: rgba(255,255,255,0.25);
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        .footer a { color: var(--hex-cyan); text-decoration: none; }
+        .footer a:hover { color: #fff; }
+        .footer .credit {
+            margin-top: 10px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.15);
+        }
+        .footer .signoff {
+            margin-top: 26px;
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.18);
+            text-transform: uppercase;
+        }
+
+        /* ── 3D Viewer ── */
+        .viewer-section { padding: 0 60px 0; }
+        .viewer-stage {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background: #050609;
+            background-image:
+                radial-gradient(circle at 18% 50%, rgba(44,217,255,0.10), transparent 55%),
+                radial-gradient(circle at 82% 50%, rgba(255,107,26,0.08), transparent 55%);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .viewer-stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+        .viewer-stage canvas:active { cursor: grabbing; }
+
+        .viewer-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.55);
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: opacity 0.4s;
+        }
+        .viewer-overlay.hidden { opacity: 0; }
+        .viewer-overlay .spin {
+            width: 28px; height: 28px;
+            border: 2px solid rgba(44,217,255,0.18);
+            border-top-color: var(--hex-cyan);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+            margin-right: 14px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .viewer-error {
+            position: absolute;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.55);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .viewer-error code {
+            background: rgba(0,0,0,0.5);
+            padding: 4px 10px;
+            border-radius: 4px;
+            color: var(--hex-cyan);
+            font-size: 12px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .viewer-hud {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            pointer-events: none;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+        .viewer-hud .light-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .viewer-hud .light-badge .dot {
+            width: 8px; height: 8px; border-radius: 50%;
+        }
+        .viewer-hud .light-badge.cyan .dot { background: var(--hex-cyan); box-shadow: 0 0 14px var(--hex-cyan); }
+        .viewer-hud .light-badge.orange .dot { background: var(--chem-orange); box-shadow: 0 0 14px var(--chem-orange); }
+        .viewer-hud .light-badge.purple .dot { background: var(--shimmer); box-shadow: 0 0 14px var(--shimmer); }
+        .viewer-hud .light-badge.key .dot { background: #f2f2f5; box-shadow: 0 0 12px rgba(255,255,255,0.5); }
+        .viewer-hud .hint {
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ── Compact wrappers ── */
+        .compact-wrap { max-width: 1100px; margin: 0 auto; padding: 0 60px; }
+        .compact-wrap .three-col,
+        .compact-wrap .four-col,
+        .compact-wrap .six-col,
+        .compact-wrap .nine-col,
+        .compact-wrap .two-col { padding: 0; }
+
+        .nine-col { display: grid; grid-template-columns: repeat(9,1fr); gap: 3px; }
+        .nine-col .frame img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
+
+        /* Section header — compact variant */
+        .section-text.tight { padding: 60px 60px 24px; }
+        .section-text.tight h2 { font-size: 24px; margin-bottom: 10px; }
+        .section-text.tight p { font-size: 14px; }
+
+        /* ── Big intro image ── */
+        .intro-shot {
+            background: var(--bg-darker);
+            padding: 60px 60px 0;
+        }
+        .intro-shot .frame {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .intro-shot img { width: 100%; display: block; }
+
+        /* ── Beauty compact grid ── */
+        .beauty-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 3px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 60px;
+            align-items: stretch;
+        }
+        .beauty-grid .frame { background: var(--bg-darker); overflow: hidden; }
+        .beauty-grid .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .beauty-videos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3px;
+            max-width: 1200px;
+            margin: 3px auto 0;
+            padding: 0 60px;
+        }
+        .beauty-videos .frame video { width: 100%; height: 100%; display: block; }
+
+        /* ── Mobile ── */
+        @media (max-width: 900px) {
+            .hero { min-height: 380px; }
+            .hero-overlay { padding: 80px 22px 30px; }
+            .hero-overlay h1 { font-size: 36px; }
+            .hero-overlay h1 .small { font-size: 16px; }
+            .hero-overlay .subtitle { font-size: 13px; }
+            .info-bar { padding: 22px 18px; gap: 18px; justify-content: center; }
+            .info-item { flex: 0 0 calc(50% - 9px); }
+            .section-text { padding: 50px 22px 26px; }
+            .section-text h2 { font-size: 22px; }
+            .section-text p { font-size: 13px; }
+            .tags { padding: 0 22px 28px; }
+            .frame-desc { padding: 28px 22px 18px; gap: 14px; }
+            .frame-desc .num { font-size: 36px; }
+            .frame-desc .text h3 { font-size: 15px; }
+            .frame-desc .text p { font-size: 12px; }
+            .two-col, .three-col { grid-template-columns: 1fr; }
+            .four-col { grid-template-columns: 1fr 1fr; }
+            .six-col { grid-template-columns: 1fr 1fr 1fr; }
+            .stat-strip, .pipeline, .tools-grid { grid-template-columns: 1fr 1fr; padding: 0 22px 30px; }
+            .pbr-grid { grid-template-columns: 1fr 1fr; }
+            .nine-col { grid-template-columns: 1fr 1fr 1fr; }
+            .compact-wrap { padding: 0 22px; }
+            .intro-shot { padding: 22px 22px 0; }
+            .beauty-grid, .beauty-videos { padding: 0 22px; grid-template-columns: 1fr; }
+            .viewer-block { padding: 0 22px 30px; }
+            .quote-block { padding: 32px 22px; }
+            .quote-block .q-text { font-size: 16px; }
+            .frame-label { font-size: 10px; padding: 5px 10px; top: 10px; left: 10px; }
+            .footer { padding: 50px 22px 36px; }
+        }
+
+        /* ── Lang switcher ── */
+        .lang-switch {
+            position: fixed;
+            top: 22px;
+            right: 26px;
+            z-index: 100;
+            display: flex;
+            gap: 2px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .lang-btn {
+            padding: 7px 14px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+            transition: color 0.2s, background 0.2s;
+        }
+        .lang-btn.active {
+            color: var(--hex-cyan);
+            background: rgba(44,217,255,0.10);
+        }
+        [data-lang="en"] .t-en { display: inline; }
+        [data-lang="en"] .t-ru { display: none; }
+        [data-lang="ru"] .t-en { display: none; }
+        [data-lang="ru"] .t-ru { display: inline; }
+    </style>
+</head>
+<body>
+
+<div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<div class="container" id="page" data-lang="ru">
+
+    <!-- ─────────────────────── HERO ─────────────────────── -->
+    <div class="hero">
+        <img src="05_Rendering/Cover/02_banner_face.webp" alt="Ezek — Hero">
+        <div class="hero-overlay">
+            <span class="eyebrow"><span class="t-ru">Кейс · 3D-персонаж</span><span class="t-en">Case study · 3D character</span></span>
+            <h1>EZEK<span class="small"><span class="t-ru">Бюст в стиле Arcane</span><span class="t-en">Arcane-style 3D bust</span></span></h1>
+            <div class="subtitle">
+                <span class="t-ru">Стилизованный 3D-персонаж в визуальном языке сериала Arcane. Гибридный пайплайн: AI-концептинг, 3D-скульпт, ретопология, painterly текстуры, cel-shading рендер.</span>
+                <span class="t-en">A stylized 3D character in the visual language of the Arcane series. Hybrid pipeline: AI concepting, 3D sculpt, retopology, painterly textures, cel-shaded rendering.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Palette strip -->
+    <div class="palette">
+        <div style="background:#2CD9FF; flex:5;"></div>
+        <div style="background:#B847FF; flex:2.5;"></div>
+        <div style="background:#FFB347; flex:1.5;"></div>
+        <div style="background:#FF6B1A; flex:1;"></div>
+        <div style="background:#07090e; flex:1;"></div>
+    </div>
+
+    <!-- ─────────────────────── INFO BAR ─────────────────────── -->
+    <div class="info-bar">
+        <div class="info-item">
+            <div class="label"><span class="t-ru">Категория</span><span class="t-en">Category</span></div>
+            <div class="value"><span class="t-ru">3D-персонаж · NPR</span><span class="t-en">3D character · NPR</span></div>
+        </div>
+        <div class="info-item">
+            <div class="label"><span class="t-ru">Стиль</span><span class="t-en">Style</span></div>
+            <div class="value accent"><span class="t-ru">Arcane painterly</span><span class="t-en">Arcane painterly</span></div>
+        </div>
+        <div class="info-item">
+            <div class="label"><span class="t-ru">Инструменты</span><span class="t-en">Tools</span></div>
+            <div class="value">Blender · Meshy · fal.ai</div>
+        </div>
+        <div class="info-item">
+            <div class="label"><span class="t-ru">Год</span><span class="t-en">Year</span></div>
+            <div class="value">2026</div>
+        </div>
+    </div>
+
+    <div class="tags" style="padding: 36px 60px 8px; max-width:1100px; margin:0 auto;">
+        <span class="tag tag-cyan">AI Concepting</span>
+        <span class="tag tag-cyan">3D Sculpt</span>
+        <span class="tag tag-purple">Retopology</span>
+        <span class="tag tag-amber">Cel Shading</span>
+        <span class="tag tag-white">Blender</span>
+        <span class="tag tag-white">Meshy AI</span>
+        <span class="tag tag-white">GPT Image 2</span>
+    </div>
+
+    <!-- ─────────────────────── PIPELINE ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">01 / <span class="t-ru">Пайплайн</span><span class="t-en">Pipeline</span></div>
+        <h2 class="t-ru"><em>5 стадий</em> · от концепта до финала</h2>
+        <h2 class="t-en"><em>5 stages</em> · concept to final</h2>
+    </div>
+
+    <div class="pipeline">
+        <div class="pipeline-step">
+            <div class="ps-num">STEP 01</div>
+            <div class="ps-title"><span class="t-ru">Концепт</span><span class="t-en">Concept</span></div>
+            <div class="ps-desc"><span class="t-ru">AI-эксплорация образов: готика, денди, изобретатель, алхимик. 9 направлений за 30 минут.</span><span class="t-en">AI exploration of looks: gothic, dandy, inventor, alchemist. 9 directions in 30 minutes.</span></div>
+        </div>
+        <div class="pipeline-step">
+            <div class="ps-num">STEP 02</div>
+            <div class="ps-title"><span class="t-ru">Скульпт</span><span class="t-en">Sculpt</span></div>
+            <div class="ps-desc"><span class="t-ru">Meshy AI text-to-3D на старте, доработка частей в Blender — голова, тело, одежда, аксессуары.</span><span class="t-en">Meshy AI text-to-3D as a starting block, refining each part in Blender — head, body, garments, props.</span></div>
+        </div>
+        <div class="pipeline-step">
+            <div class="ps-num">STEP 03</div>
+            <div class="ps-title"><span class="t-ru">Ретоп</span><span class="t-en">Retopo</span></div>
+            <div class="ps-desc"><span class="t-ru">Чистая топология для каждой части — лицо, тело, плащ. Подготовка к UV и анимации.</span><span class="t-en">Clean topology for every part — face, body, coat. Ready for UV and animation.</span></div>
+        </div>
+        <div class="pipeline-step">
+            <div class="ps-num">STEP 04</div>
+            <div class="ps-title"><span class="t-ru">Текстуры</span><span class="t-en">Textures</span></div>
+            <div class="ps-desc"><span class="t-ru">PBR-набор от Meshy: base color, normal, roughness, metallic, emission. Doверху painterly-обработка.</span><span class="t-en">PBR set from Meshy: base color, normal, roughness, metallic, emission. Painterly pass on top.</span></div>
+        </div>
+        <div class="pipeline-step">
+            <div class="ps-num">STEP 05</div>
+            <div class="ps-title"><span class="t-ru">Рендер</span><span class="t-en">Render</span></div>
+            <div class="ps-desc"><span class="t-ru">Cel-shading в Blender EEVEE: Shader-to-RGB + ColorRamp + Freestyle outline. Тёрнэраунды.</span><span class="t-en">Cel-shading in Blender EEVEE: Shader-to-RGB + ColorRamp + Freestyle outline. Turnarounds.</span></div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────── CONCEPT EXPLORATION (compact) ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">02 / <span class="t-ru">Концепт-эксплорация</span><span class="t-en">Concept exploration</span></div>
+        <h2 class="t-ru">9 образов <em>через AI</em></h2>
+        <h2 class="t-en">9 looks <em>via AI</em></h2>
+    </div>
+
+    <div class="compact-wrap">
+        <div class="four-col">
+            <div class="frame"><img src="01_Preproduction/Concept/concepts/A1_gothic_elder.webp" alt="A1"><div class="frame-label"><span>A1</span>Gothic Elder</div></div>
+            <div class="frame"><img src="01_Preproduction/Concept/concepts/A2_gothic_lab.webp" alt="A2"><div class="frame-label"><span>A2</span>Gothic Lab</div></div>
+            <div class="frame"><img src="01_Preproduction/Concept/concepts/B1_dandy_purple.webp" alt="B1"><div class="frame-label"><span>B1</span>Dandy Purple</div></div>
+            <div class="frame"><img src="01_Preproduction/Concept/concepts/B2_dandy_blue.webp" alt="B2"><div class="frame-label"><span>B2</span>Dandy Blue</div></div>
+            <div class="frame"><img src="01_Preproduction/Concept/concepts/C2_inventor_face.webp" alt="C2"><div class="frame-label"><span>C2</span>Inventor</div></div>
+            <div class="frame"><img src="01_Preproduction/Concept/concepts/D1_alchemist.webp" alt="D1"><div class="frame-label"><span>D1</span>Alchemist</div></div>
+            <div class="frame"><img src="01_Preproduction/Concept/concepts/D2_commander.webp" alt="D2"><div class="frame-label"><span>D2</span>Commander</div></div>
+            <div class="frame"><img src="01_Preproduction/Concept/concepts/D3_silco_heimer.webp" alt="D3"><div class="frame-label"><span>D3</span>Silco-Heimer</div></div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────── FULL-BODY ENV CONCEPTS ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">03 / <span class="t-ru">В окружении</span><span class="t-en">In context</span></div>
+        <h2 class="t-ru">5 контекстных <em>кадров</em></h2>
+        <h2 class="t-en">5 contextual <em>frames</em></h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px;">
+        <div class="frame"><img src="01_Preproduction/Concept/concepts_fullbody/E1_lab.webp" alt="E1 Lab"><div class="frame-label"><span>E1</span>Lab</div></div>
+        <div class="frame"><img src="01_Preproduction/Concept/concepts_fullbody/E2_zaun_street.webp" alt="E2 Zaun Street"><div class="frame-label"><span>E2</span>Zaun</div></div>
+        <div class="frame"><img src="01_Preproduction/Concept/concepts_fullbody/E3_office_dramatic.webp" alt="E3 Office"><div class="frame-label"><span>E3</span>Office</div></div>
+        <div class="frame"><img src="01_Preproduction/Concept/concepts_fullbody/E4_action_coat.webp" alt="E4 Action"><div class="frame-label"><span>E4</span>Action</div></div>
+        <div class="frame"><img src="01_Preproduction/Concept/concepts_fullbody/E5_rooftop.webp" alt="E5 Rooftop"><div class="frame-label"><span>E5</span>Rooftop</div></div>
+    </div>
+
+    <!-- ─────────────────────── SCULPT STAGE ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">04 / <span class="t-ru">Скульпт</span><span class="t-en">Sculpt</span></div>
+        <h2 class="t-ru">Объём <em>по частям</em></h2>
+        <h2 class="t-en">Volume <em>part by part</em></h2>
+        <p class="t-ru">Персонаж собран модульно — голова, тело, плащ, пиджак, рубашка, штаны, ботинки, перчатки, монокль, глаза. Каждая часть моделится отдельно и позже линкуется в общую сцену. Такой подход даёт гибкость при перегенерации (например, сменить плащ или ботинки).</p>
+        <p class="t-en">The character is assembled modularly — head, body, coat, jacket, shirt, pants, boots, hands, monocle, eyes. Each part is sculpted separately and later linked into the master scene. This gives flexibility for regeneration (swap a coat, change boots).</p>
+    </div>
+
+    <div class="five-col" style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px;">
+        <div class="frame"><img src="02_Production/Characters/CLAY-3d/face.webp" alt="Face clay"><div class="frame-label"><span>01</span><span class="t-ru">Голова</span><span class="t-en">Head</span></div></div>
+        <div class="frame"><img src="02_Production/Characters/CLAY-3d/body.webp" alt="Body clay"><div class="frame-label"><span>02</span><span class="t-ru">Тело</span><span class="t-en">Body</span></div></div>
+        <div class="frame"><img src="02_Production/Characters/CLAY-3d/coat.webp" alt="Coat clay"><div class="frame-label"><span>03</span><span class="t-ru">Плащ</span><span class="t-en">Coat</span></div></div>
+        <div class="frame"><img src="02_Production/Characters/CLAY-3d/jacket.webp" alt="Jacket clay"><div class="frame-label"><span>04</span><span class="t-ru">Пиджак</span><span class="t-en">Jacket</span></div></div>
+        <div class="frame"><img src="02_Production/Characters/CLAY-3d/shirt.webp" alt="Shirt clay"><div class="frame-label"><span>05</span><span class="t-ru">Рубашка</span><span class="t-en">Shirt</span></div></div>
+        <div class="frame"><img src="02_Production/Characters/CLAY-3d/pants.webp" alt="Pants clay"><div class="frame-label"><span>06</span><span class="t-ru">Штаны</span><span class="t-en">Pants</span></div></div>
+        <div class="frame"><img src="02_Production/Characters/CLAY-3d/boots.webp" alt="Boots clay"><div class="frame-label"><span>07</span><span class="t-ru">Ботинки</span><span class="t-en">Boots</span></div></div>
+        <div class="frame"><img src="02_Production/Characters/CLAY-3d/hand.webp" alt="Hand clay"><div class="frame-label"><span>08</span><span class="t-ru">Рука</span><span class="t-en">Hand</span></div></div>
+        <div class="frame"><img src="02_Production/Characters/CLAY-3d/eyes.webp" alt="Eyes clay"><div class="frame-label"><span>09</span><span class="t-ru">Глаз</span><span class="t-en">Eye</span></div></div>
+        <div class="frame"><img src="02_Production/Characters/CLAY-3d/monocol.webp" alt="Monocle clay"><div class="frame-label"><span>10</span><span class="t-ru">Монокль</span><span class="t-en">Monocle</span></div></div>
+    </div>
+
+    <!-- ─────────────────────── TOPOLOGY / WIREFRAME ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">05 / <span class="t-ru">Топология</span><span class="t-en">Topology</span></div>
+        <h2 class="t-ru">Чистая <em>сетка</em> для каждой части</h2>
+        <h2 class="t-en">Clean <em>topology</em> per part</h2>
+        <p class="t-ru">После скульпта — ретопология. Лицо использует quad-сетку с loops под мимику, тело и одежда — равномерную плотность для деформации. Это критично для риги и анимации в будущем.</p>
+        <p class="t-en">After sculpting — retopology. The face uses a quad mesh with edge loops following facial expressions, body and garments use even density for deformation. Critical for future rigging and animation.</p>
+    </div>
+
+    <div class="six-col">
+        <div class="frame"><img src="05_Rendering/Stills/Body_Wire/01_front.webp" alt="Wire front"><div class="frame-label">0°</div></div>
+        <div class="frame"><img src="05_Rendering/Stills/Body_Wire/02_three_quarter_R.webp" alt="Wire 3/4 R"><div class="frame-label">45°</div></div>
+        <div class="frame"><img src="05_Rendering/Stills/Body_Wire/03_profile_R.webp" alt="Wire profile R"><div class="frame-label">90°</div></div>
+        <div class="frame"><img src="05_Rendering/Stills/Body_Wire/04_back.webp" alt="Wire back"><div class="frame-label">180°</div></div>
+        <div class="frame"><img src="05_Rendering/Stills/Body_Wire/05_profile_L.webp" alt="Wire profile L"><div class="frame-label">270°</div></div>
+        <div class="frame"><img src="05_Rendering/Stills/Body_Wire/06_three_quarter_L.webp" alt="Wire 3/4 L"><div class="frame-label">315°</div></div>
+    </div>
+
+    <div class="two-col">
+        <div class="frame">
+            <video autoplay loop muted playsinline>
+                <source src="05_Rendering/wire0001-0100.mp4" type="video/mp4">
+            </video>
+            <div class="frame-label"><span class="t-ru">Тёрнэраунд тело · сетка</span><span class="t-en">Body turnaround · wire</span></div>
+        </div>
+        <div class="frame">
+            <video autoplay loop muted playsinline>
+                <source src="05_Rendering/face-wire0001-0100.mp4" type="video/mp4">
+            </video>
+            <div class="frame-label"><span class="t-ru">Тёрнэраунд лицо · сетка</span><span class="t-en">Face turnaround · wire</span></div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────── 3D VIEWER (Three.js cel-shading) ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">06 / <span class="t-ru">3D-вьюер</span><span class="t-en">3D viewer</span></div>
+        <h2 class="t-ru">Покрутить <em>в браузере</em></h2>
+        <h2 class="t-en">Spin it <em>in the browser</em></h2>
+        <p class="t-ru">Интерактивная модель с cel-shading прямо в браузере. Два света — синий слева и оранжевый справа — фиксированы, модель крутится. Зажми мышь и тяни.</p>
+        <p class="t-en">Interactive cel-shaded model in the browser. Two lights — cyan from the left, orange from the right — fixed in space, model rotates. Hold the mouse and drag.</p>
+    </div>
+
+    <div class="viewer-section">
+        <div class="viewer-stage" id="viewer-stage">
+            <canvas id="three-canvas"></canvas>
+            <div class="viewer-overlay" id="viewer-overlay">
+                <div class="spin"></div>
+                <span><span class="t-ru">Загрузка модели</span><span class="t-en">Loading model</span></span>
+            </div>
+            <div class="viewer-error" id="viewer-error">
+                <div><span class="t-ru">GLB-файл не загружен</span><span class="t-en">GLB file not found</span></div>
+                <code>02_Production/Characters/baked.glb</code>
+            </div>
+            <div class="viewer-hud">
+                <div class="light-badge purple"><span class="dot"></span>Shimmer rim</div>
+                <div class="hint"><span class="t-ru">тяни мышью — крутить</span><span class="t-en">drag to rotate</span></div>
+                <div class="light-badge key"><span class="dot"></span>Key · neutral</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────── FINAL BEAUTY (compact) ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">07 / <span class="t-ru">Финал</span><span class="t-en">Final</span></div>
+        <h2 class="t-ru">Beauty <em>shots</em></h2>
+        <h2 class="t-en">Beauty <em>shots</em></h2>
+    </div>
+
+    <div class="beauty-grid">
+        <div class="frame"><img src="05_Rendering/face.webp" alt="Face front"><div class="frame-label"><span class="t-ru">Фронт</span><span class="t-en">Front</span></div></div>
+        <div class="frame"><img src="05_Rendering/BODY%20FULL.webp" alt="Full body" style="object-fit:contain;background:var(--bg-darker);"><div class="frame-label"><span class="t-ru">Фул-боди</span><span class="t-en">Full body</span></div></div>
+        <div class="frame"><img src="05_Rendering/3-4.webp" alt="3/4 angle"><div class="frame-label"><span class="t-ru">3/4</span><span class="t-en">3/4</span></div></div>
+    </div>
+
+    <div class="beauty-videos">
+        <div class="frame">
+            <video autoplay loop muted playsinline>
+                <source src="05_Rendering/face0001-0100.mp4" type="video/mp4">
+            </video>
+            <div class="frame-label"><span class="t-ru">Тёрнэраунд · лицо</span><span class="t-en">Face turnaround</span></div>
+        </div>
+        <div class="frame">
+            <video autoplay loop muted playsinline>
+                <source src="05_Rendering/0001-0100.mp4" type="video/mp4">
+            </video>
+            <div class="frame-label"><span class="t-ru">Тёрнэраунд · тело</span><span class="t-en">Body turnaround</span></div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────── EMOTIONS SHEET (compact) ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">08 / <span class="t-ru">Эмоции</span><span class="t-en">Expressions</span></div>
+        <h2 class="t-ru">Expression <em>sheet</em></h2>
+        <h2 class="t-en">Expression <em>sheet</em></h2>
+    </div>
+
+    <div class="compact-wrap">
+        <div class="three-col">
+            <div class="frame"><img src="05_Rendering/Emotions/01_neutral.webp" alt="Neutral"><div class="frame-label"><span>01</span>Neutral</div></div>
+            <div class="frame"><img src="05_Rendering/Emotions/02_smirk.webp" alt="Smirk"><div class="frame-label"><span>02</span>Smirk</div></div>
+            <div class="frame"><img src="05_Rendering/Emotions/03_laugh.webp" alt="Laugh"><div class="frame-label"><span>03</span>Laugh</div></div>
+            <div class="frame"><img src="05_Rendering/Emotions/04_focused.webp" alt="Focused"><div class="frame-label"><span>04</span>Focused</div></div>
+            <div class="frame"><img src="05_Rendering/Emotions/05_anger.webp" alt="Anger"><div class="frame-label"><span>05</span>Anger</div></div>
+            <div class="frame"><img src="05_Rendering/Emotions/06_surprise.webp" alt="Surprise"><div class="frame-label"><span>06</span>Surprise</div></div>
+            <div class="frame"><img src="05_Rendering/Emotions/07_sadness.webp" alt="Sadness"><div class="frame-label"><span>07</span>Sadness</div></div>
+            <div class="frame"><img src="05_Rendering/Emotions/08_evil_grin.webp" alt="Evil grin"><div class="frame-label"><span>08</span>Evil Grin</div></div>
+            <div class="frame"><img src="05_Rendering/Emotions/09_disdain.webp" alt="Disdain"><div class="frame-label"><span>09</span>Disdain</div></div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────── POSE SHEET (compact) ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">09 / <span class="t-ru">Позы</span><span class="t-en">Poses</span></div>
+        <h2 class="t-ru">Pose <em>sheet</em></h2>
+        <h2 class="t-en">Pose <em>sheet</em></h2>
+    </div>
+
+    <div class="compact-wrap">
+        <div class="three-col">
+            <div class="frame"><img src="05_Rendering/Pose_Sheet/01_adjust_monocle.webp" alt="Adjust monocle"><div class="frame-label"><span>01</span><span class="t-ru">Монокль</span><span class="t-en">Monocle</span></div></div>
+            <div class="frame"><img src="05_Rendering/Pose_Sheet/02_arms_crossed.webp" alt="Arms crossed"><div class="frame-label"><span>02</span><span class="t-ru">Скрещённые руки</span><span class="t-en">Arms crossed</span></div></div>
+            <div class="frame"><img src="05_Rendering/Pose_Sheet/03_reading_book.webp" alt="Reading book"><div class="frame-label"><span>03</span><span class="t-ru">Чтение</span><span class="t-en">Reading</span></div></div>
+            <div class="frame"><img src="05_Rendering/Pose_Sheet/04_leaning_cane.webp" alt="Leaning on cane"><div class="frame-label"><span>04</span><span class="t-ru">Трость</span><span class="t-en">Cane</span></div></div>
+            <div class="frame"><img src="05_Rendering/Pose_Sheet/05_pointing.webp" alt="Pointing"><div class="frame-label"><span>05</span><span class="t-ru">Команда</span><span class="t-en">Command</span></div></div>
+            <div class="frame"><img src="05_Rendering/Pose_Sheet/06_coat_open.webp" alt="Coat open"><div class="frame-label"><span>06</span><span class="t-ru">Плащ</span><span class="t-en">Coat</span></div></div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────── CINEMATIC SCENES ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">10 / <span class="t-ru">Кинокадры</span><span class="t-en">Cinematic frames</span></div>
+        <h2 class="t-ru">Кадры <em>как из сериала</em></h2>
+        <h2 class="t-en">Frames <em>like the show</em></h2>
+        <p class="t-ru">4 разноплановых сцены: макро механизма, открытие в лаборатории, спор за столом, ночная улица Заун. Каждый кадр — самостоятельная история, как фильм-стилл из ключевой серии.</p>
+        <p class="t-en">4 varied scenes: a macro mechanism close-up, a lab discovery moment, a tense argument, a Zaun night-alley. Each frame stands as a self-contained story, like a key-episode film still.</p>
+    </div>
+
+    <div class="two-col">
+        <div class="frame">
+            <video autoplay loop muted playsinline preload="metadata"><source src="05_Rendering/Cinematic_Scenes/01_macro_mechanism.mp4" type="video/mp4"></video>
+            <div class="frame-label"><span>S01</span><span class="t-ru">Механизм</span><span class="t-en">Mechanism</span></div>
+        </div>
+        <div class="frame">
+            <video autoplay loop muted playsinline preload="metadata"><source src="05_Rendering/Cinematic_Scenes/02_lab_back_discovery.mp4" type="video/mp4"></video>
+            <div class="frame-label"><span>S02</span><span class="t-ru">Открытие</span><span class="t-en">Discovery</span></div>
+        </div>
+    </div>
+    <div class="two-col">
+        <div class="frame">
+            <video autoplay loop muted playsinline preload="metadata"><source src="05_Rendering/Cinematic_Scenes/03_argument_council.mp4" type="video/mp4"></video>
+            <div class="frame-label"><span>S03</span><span class="t-ru">Спор</span><span class="t-en">Argument</span></div>
+        </div>
+        <div class="frame">
+            <video autoplay loop muted playsinline preload="metadata"><source src="05_Rendering/Cinematic_Scenes/04_zaun_alley_pursuit.mp4" type="video/mp4"></video>
+            <div class="frame-label"><span>S04</span><span class="t-ru">Заун</span><span class="t-en">Zaun</span></div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────── LIGHTING ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">11 / <span class="t-ru">Освещение</span><span class="t-en">Lighting</span></div>
+        <h2 class="t-ru">4 <em>лайт-сетапа</em></h2>
+        <h2 class="t-en">4 <em>lighting setups</em></h2>
+    </div>
+
+    <div class="four-col">
+        <div class="frame"><img src="05_Rendering/Lighting/01_cyan_rim.webp" alt="Cyan rim"><div class="frame-label"><span>L01</span>Cyan Rim</div></div>
+        <div class="frame"><img src="05_Rendering/Lighting/02_warm_key.webp" alt="Warm key"><div class="frame-label"><span>L02</span>Warm Key</div></div>
+        <div class="frame"><img src="05_Rendering/Lighting/03_top_chiaroscuro.webp" alt="Chiaroscuro"><div class="frame-label"><span>L03</span>Chiaroscuro</div></div>
+        <div class="frame"><img src="05_Rendering/Lighting/04_underlight.webp" alt="Underlight"><div class="frame-label"><span>L04</span>Underlight</div></div>
+    </div>
+
+    <!-- ─────────────────────── QUOTE ─────────────────────── -->
+    <div class="quote-block">
+        <div class="q-mark">"</div>
+        <div>
+            <div class="q-text">
+                <span class="t-ru">Гибрид AI и 3D — не замена ручной работе. Это способ быстро пройти концептинг и не утонуть в первых черновиках, а дальше — всё руками: ретопология, текстуры, шейдеры, рендер.</span>
+                <span class="t-en">AI + 3D hybrid is not a replacement for hand work. It's a way to push through concepting fast and not drown in first drafts — then everything by hand: retopo, textures, shaders, render.</span>
+            </div>
+            <div class="q-author">— DANIL GRYZLOV · 3D.GRYZ STUDIO</div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────── TOOLS ─────────────────────── -->
+    <div class="section-text tight">
+        <div class="step">12 / <span class="t-ru">Инструменты</span><span class="t-en">Tools</span></div>
+        <h2 class="t-ru">Стек <em>проекта</em></h2>
+        <h2 class="t-en">Project <em>stack</em></h2>
+    </div>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-icon">🎨</div>
+            <div class="tool-role">Concepting</div>
+            <div class="tool-name">GPT Image 2 · fal.ai</div>
+            <div class="tool-desc"><span class="t-ru">img2img концепт-эксплорация и сохранение идентичности персонажа на всех этапах. Использован в low-quality режиме.</span><span class="t-en">img2img concept exploration and identity preservation across stages. Run in low-quality mode.</span></div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">🧊</div>
+            <div class="tool-role">Sculpt · Mesh</div>
+            <div class="tool-name">Meshy AI</div>
+            <div class="tool-desc"><span class="t-ru">Text-to-3D для базовых частей: голова, тело, одежда, аксессуары. Стартовый блок для скульпта в Blender.</span><span class="t-en">Text-to-3D for base parts: head, body, garments, props. Starting block for Blender sculpt.</span></div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">🎬</div>
+            <div class="tool-role">3D · Render</div>
+            <div class="tool-name">Blender · EEVEE</div>
+            <div class="tool-desc"><span class="t-ru">Cel-shading toon-шейдер с albedo-картой. Тёрнэраунды на 100 кадрах при 24 fps.</span><span class="t-en">Cel-shading toon shader with albedo map. 100-frame turnarounds at 24 fps.</span></div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">⚡</div>
+            <div class="tool-role">Pipeline</div>
+            <div class="tool-name">Python · ffmpeg</div>
+            <div class="tool-desc"><span class="t-ru">Батч-генерация через fal.ai async API в 6 потоков. Извлечение кадров через ffmpeg, склейки через Pillow.</span><span class="t-en">Batch generation via fal.ai async API in 6 parallel threads. Frame extraction via ffmpeg, composites via Pillow.</span></div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────── FOOTER ─────────────────────── -->
+    <div class="footer">
+        <div>
+            <span class="t-ru">3D.GRYZ Studio · 3D-анимация · персонажи · AI-контент</span>
+            <span class="t-en">3D.GRYZ Studio · 3D animation · characters · AI content</span>
+        </div>
+        <div class="credit">
+            <a href="https://t.me/dgryzlov_art" target="_blank">@dgryzlov.art</a> ·
+            <a href="https://t.me/nastya_parr" target="_blank">@nastya_parr</a> ·
+            <span class="t-ru">Связаться · Заказать</span><span class="t-en">Contact · Hire</span>
+        </div>
+        <div class="signoff">EZEK · ARCANE BUST · 2026</div>
+    </div>
+
+</div>
+
+<script>
+function setLang(lang) {
+    document.getElementById('page').setAttribute('data-lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+}
+</script>
+
+<!-- ─────── Three.js cel-shading viewer ─────── -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader }     from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls }  from 'three/addons/controls/OrbitControls.js';
+import { RGBELoader }     from 'three/addons/loaders/RGBELoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+
+// ── Configuration ──
+const GLB_PATH  = '02_Production/Characters/baked_web.glb';
+const HDRI_PATH = '08_Assets/hdri/moonless_golf_1k.hdr';
+
+// Warn user if opened via file:// — GLB and modules will fail
+if (location.protocol === 'file:') {
+    document.getElementById('viewer-error').innerHTML =
+        '<div>Открой через локальный сервер:</div>' +
+        '<code>http://localhost:8765/index.html</code>' +
+        '<div style="margin-top:14px;font-size:11px;opacity:0.6;">' +
+        'Я уже запустил его в фоне.</div>';
+    document.getElementById('viewer-error').style.display = 'flex';
+    document.getElementById('viewer-overlay').style.display = 'none';
+    throw new Error('Open via http:// not file://');
+}
+// Tuned via viewer_test.html
+const RIM_COLOR    = 0xB847FF;
+const RIM_INT      = 10.4;
+const RIM_POS      = [1.8, 1.1, -4.5];
+const GRAD_CUTOFF  = 0.34;
+const GRAD_SOFT    = 0.08;        // softness around cutoff (smoothstep half-width)
+const COLOR_KEY    = 0xf2f2f5;
+const BG_COLOR     = 0x000000;
+
+const stage   = document.getElementById('viewer-stage');
+const canvas  = document.getElementById('three-canvas');
+const overlay = document.getElementById('viewer-overlay');
+const errBox  = document.getElementById('viewer-error');
+
+// ── Scene / camera / renderer ──
+const scene  = new THREE.Scene();
+scene.background = new THREE.Color(BG_COLOR);
+
+const camera = new THREE.PerspectiveCamera(35, stage.clientWidth / stage.clientHeight, 0.05, 100);
+camera.position.set(0, 1.6, 4);
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+renderer.setSize(stage.clientWidth, stage.clientHeight, false);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+// ── Lights — fixed in world space, model rotates ──
+// MAIN KEY — neutral, front-top, the primary readable light
+const keyLight = new THREE.DirectionalLight(COLOR_KEY, 1.6);
+keyLight.position.set(2.0, 3.0, 4.5);
+scene.add(keyLight);
+
+// PURPLE RIM — single contre-jour accent (tuned via viewer_test.html)
+const purpleRim = new THREE.DirectionalLight(RIM_COLOR, RIM_INT);
+purpleRim.position.set(...RIM_POS);
+scene.add(purpleRim);
+
+// ── HDRI environment — very dark, just a hint of space ──
+const pmrem = new THREE.PMREMGenerator(renderer);
+new RGBELoader().load(HDRI_PATH, (hdr) => {
+    hdr.mapping = THREE.EquirectangularReflectionMapping;
+    const envMap = pmrem.fromEquirectangular(hdr).texture;
+    scene.background = envMap;
+    scene.backgroundBlurriness = 0.7;
+    scene.backgroundIntensity  = 0.08;
+    hdr.dispose();
+    pmrem.dispose();
+});
+
+// ── Cel-shading: smooth-cutoff toon gradient (tuned via viewer_test.html) ──
+const gradTex = (() => {
+    const N = 64;
+    const lo = GRAD_CUTOFF - GRAD_SOFT;
+    const hi = GRAD_CUTOFF + GRAD_SOFT;
+    const data = new Uint8Array(N * 4);
+    for (let i = 0; i < N; i++) {
+        const x = i / (N - 1);
+        let t;
+        if (x <= lo) t = 0;
+        else if (x >= hi) t = 1;
+        else {
+            const u = (x - lo) / (hi - lo);
+            t = u * u * (3 - 2 * u); // smoothstep
+        }
+        const v = Math.round(t * 255);
+        data[i*4] = v; data[i*4+1] = v; data[i*4+2] = v; data[i*4+3] = 255;
+    }
+    const tex = new THREE.DataTexture(data, N, 1, THREE.RGBAFormat);
+    tex.minFilter = THREE.NearestFilter;
+    tex.magFilter = THREE.NearestFilter;
+    tex.needsUpdate = true;
+    return tex;
+})();
+
+// ── Controls ──
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping  = true;
+controls.dampingFactor  = 0.06;
+controls.enablePan      = false;
+controls.enableZoom     = false;
+controls.minDistance    = 0.8;
+controls.maxDistance    = 8;
+controls.minPolarAngle  = Math.PI * 0.15;
+controls.maxPolarAngle  = Math.PI * 0.85;
+controls.autoRotate     = true;
+controls.autoRotateSpeed = 0.9;
+canvas.addEventListener('pointerdown', () => { controls.autoRotate = false; });
+
+// ── Resize ──
+function onResize() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h, false);
+}
+window.addEventListener('resize', onResize);
+onResize();
+
+// ── Load GLB ──
+const loader = new GLTFLoader();
+loader.setMeshoptDecoder(MeshoptDecoder);
+const overlayText = overlay.querySelector('span');
+console.log('[viewer] loading GLB:', GLB_PATH);
+loader.load(GLB_PATH, (gltf) => {
+    console.log('[viewer] GLB loaded, traversing meshes…');
+    const root = gltf.scene;
+
+    // Replace each material with toon material, keep maps
+    root.traverse((obj) => {
+        if (!obj.isMesh) return;
+        const old = obj.material;
+        const baseColor = (old && old.color) ? old.color.clone() : new THREE.Color(0xffffff);
+        const map = old && old.map ? old.map : null;
+        const normalMap = old && old.normalMap ? old.normalMap : null;
+
+        if (map) map.colorSpace = THREE.SRGBColorSpace;
+
+        obj.material = new THREE.MeshToonMaterial({
+            color: baseColor,
+            map: map,
+            normalMap: normalMap,
+            gradientMap: gradTex,
+            side: THREE.DoubleSide,
+        });
+        obj.castShadow = false;
+        obj.receiveShadow = false;
+    });
+
+    // Auto-frame: center the model and fit camera to its bbox
+    const bbox = new THREE.Box3().setFromObject(root);
+    const size = bbox.getSize(new THREE.Vector3());
+    const center = bbox.getCenter(new THREE.Vector3());
+    root.position.sub(center);                      // re-center on origin
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const dist = maxDim / (2 * Math.tan((camera.fov * Math.PI) / 360)) * 1.05;
+    camera.position.set(0, size.y * 0.05, dist);
+    controls.target.set(0, 0, 0);
+    controls.update();
+
+    scene.add(root);
+    overlay.classList.add('hidden');
+}, (xhr) => {
+    if (xhr.lengthComputable) {
+        const pct = Math.round((xhr.loaded / xhr.total) * 100);
+        if (overlayText) overlayText.textContent = `Загрузка ${pct}%`;
+    }
+}, (err) => {
+    console.warn('[viewer] GLB load error:', err);
+    overlay.style.display = 'none';
+    errBox.querySelector('code').textContent = GLB_PATH + ' — ' + (err && err.message ? err.message : 'load failed');
+    errBox.style.display = 'flex';
+});
+
+// ── Render loop ──
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+}
+animate();
+</script>
+
+</body>
+</html>
