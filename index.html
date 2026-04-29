@@ -204,11 +204,13 @@
         .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
         .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; }
         .four-col  { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
+        .five-col  { display: grid; grid-template-columns: repeat(5,1fr); gap: 3px; }
         .six-col   { display: grid; grid-template-columns: repeat(6,1fr); gap: 3px; }
 
         .two-col .frame img,
         .three-col .frame img,
         .four-col .frame img,
+        .five-col .frame img,
         .six-col .frame img { width: 100%; height: 100%; object-fit: cover; }
 
         /* ── Frame description ── */
@@ -635,37 +637,120 @@
         }
         .beauty-videos .frame video { width: 100%; height: 100%; display: block; }
 
-        /* ── Mobile ── */
+        /* ── Tablet / Small laptop ── */
+        @media (max-width: 1100px) {
+            .info-bar { padding: 28px 36px; gap: 14px; }
+            .pipeline { grid-template-columns: repeat(5,1fr); padding: 0 36px 40px; }
+            .nine-col { grid-template-columns: repeat(9,1fr); }
+        }
+
+        /* ── Mobile (≤ 900px) ── */
         @media (max-width: 900px) {
-            .hero { min-height: 380px; }
-            .hero-overlay { padding: 80px 22px 30px; }
-            .hero-overlay h1 { font-size: 36px; }
-            .hero-overlay h1 .small { font-size: 16px; }
-            .hero-overlay .subtitle { font-size: 13px; }
-            .info-bar { padding: 22px 18px; gap: 18px; justify-content: center; }
-            .info-item { flex: 0 0 calc(50% - 9px); }
-            .section-text { padding: 50px 22px 26px; }
-            .section-text h2 { font-size: 22px; }
-            .section-text p { font-size: 13px; }
-            .tags { padding: 0 22px 28px; }
-            .frame-desc { padding: 28px 22px 18px; gap: 14px; }
-            .frame-desc .num { font-size: 36px; }
-            .frame-desc .text h3 { font-size: 15px; }
+            .hero { min-height: 0; align-items: flex-end; }
+            .hero img { aspect-ratio: auto; height: auto; }
+            .hero-overlay { padding: 60px 22px 26px; }
+            .hero-overlay .eyebrow { padding: 4px 11px; font-size: 9px; letter-spacing: 1.8px; margin-bottom: 12px; }
+            .hero-overlay h1 { font-size: 38px; letter-spacing: -1px; }
+            .hero-overlay h1 .small { font-size: 14px; margin-top: 6px; }
+            .hero-overlay .subtitle { font-size: 12px; line-height: 1.55; }
+            .palette { height: 4px; }
+            .info-bar { padding: 18px 16px; gap: 14px 18px; justify-content: center; }
+            .info-item { flex: 0 0 calc(50% - 12px); min-width: 0; }
+            .info-item .label { font-size: 9px; letter-spacing: 1.8px; margin-bottom: 5px; }
+            .info-item .value { font-size: 12px; }
+            .section-text { padding: 44px 22px 22px; }
+            .section-text.tight { padding: 36px 22px 18px; }
+            .section-text h2 { font-size: 22px; letter-spacing: -0.3px; }
+            .section-text.tight h2 { font-size: 19px; }
+            .section-text p { font-size: 13px; line-height: 1.65; }
+            .section-text .step { font-size: 10px; letter-spacing: 2px; margin-bottom: 12px; }
+            .tags { padding: 0 22px 22px; }
+            .tag { font-size: 10px; padding: 4px 11px; }
+            .frame-desc { padding: 24px 22px 16px; gap: 12px; }
+            .frame-desc .num { font-size: 32px; }
+            .frame-desc .text h3 { font-size: 14px; }
             .frame-desc .text p { font-size: 12px; }
-            .two-col, .three-col { grid-template-columns: 1fr; }
-            .four-col { grid-template-columns: 1fr 1fr; }
-            .six-col { grid-template-columns: 1fr 1fr 1fr; }
-            .stat-strip, .pipeline, .tools-grid { grid-template-columns: 1fr 1fr; padding: 0 22px 30px; }
-            .pbr-grid { grid-template-columns: 1fr 1fr; }
+
+            /* Grids — 3 per row for thumbnails, 1 col for wide cinematic shots */
+            .two-col { grid-template-columns: 1fr; }            /* cinematic scenes, beauty videos — keep 1 wide */
+            .three-col { grid-template-columns: 1fr 1fr 1fr; }  /* hero shots, emotions, poses */
+            .four-col { grid-template-columns: 1fr 1fr 1fr; }   /* concepts, lighting */
+            .five-col { grid-template-columns: 1fr 1fr 1fr; }   /* envs, sculpt parts */
+            .six-col { grid-template-columns: 1fr 1fr 1fr; }    /* wireframe stills */
             .nine-col { grid-template-columns: 1fr 1fr 1fr; }
+            /* Move labels to bottom-left on mobile so they don't cover the face */
+            .frame-label {
+                top: auto;
+                bottom: 6px;
+                left: 6px;
+                font-size: 9px;
+                padding: 3px 7px;
+                letter-spacing: 0.3px;
+                background: rgba(0,0,0,0.78);
+            }
+            .frame-label span { margin-right: 4px; }
+
+            .stat-strip, .pipeline, .tools-grid { grid-template-columns: 1fr 1fr; padding: 0 22px 28px; }
+            .pbr-grid { grid-template-columns: 1fr 1fr; }
+            .stat-card .stat-value { font-size: 22px; }
+            .stat-card { padding: 18px 20px; }
+            .pipeline-step { padding: 16px 14px; }
+            .pipeline-step .ps-title { font-size: 13px; }
+            .tool-card { padding: 18px 16px; }
+            .tool-card .tool-name { font-size: 13px; }
+
             .compact-wrap { padding: 0 22px; }
             .intro-shot { padding: 22px 22px 0; }
-            .beauty-grid, .beauty-videos { padding: 0 22px; grid-template-columns: 1fr; }
-            .viewer-block { padding: 0 22px 30px; }
-            .quote-block { padding: 32px 22px; }
+            /* Beauty: full body big on top, then 2x2 with front + 3/4 below */
+            .beauty-grid {
+                padding: 0 22px;
+                grid-template-columns: 1fr 1fr;
+                grid-template-areas:
+                    "body body"
+                    "face three";
+            }
+            .beauty-grid .frame:nth-child(1) { grid-area: face; }
+            .beauty-grid .frame:nth-child(2) {
+                grid-area: body;
+                aspect-ratio: 1 / 1;
+                background: var(--bg-darker);
+            }
+            .beauty-grid .frame:nth-child(3) { grid-area: three; }
+            .beauty-grid .frame:nth-child(2) img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                background: var(--bg-darker);
+            }
+            .beauty-videos { padding: 0 22px; grid-template-columns: 1fr 1fr; }
+            /* Lighting 2x2 instead of 3+1 orphan */
+            .four-col.quad { grid-template-columns: 1fr 1fr; }
+            .viewer-section { padding: 0 22px; }
+            .viewer-stage { aspect-ratio: 4 / 5; }                 /* taller for portrait phones */
+            .viewer-hud { left: 10px; right: 10px; bottom: 10px;
+                font-size: 8.5px; letter-spacing: 1.5px; gap: 8px;
+                flex-wrap: wrap; justify-content: center; }
+            .viewer-hud .hint { display: none; }                    /* hide drag hint on mobile */
+            .quote-block { padding: 32px 22px; gap: 16px; }
             .quote-block .q-text { font-size: 16px; }
-            .frame-label { font-size: 10px; padding: 5px 10px; top: 10px; left: 10px; }
-            .footer { padding: 50px 22px 36px; }
+            .quote-block .q-mark { font-size: 50px; }
+            .footer { padding: 44px 22px 32px; font-size: 11px; }
+            .lang-switch { top: 14px; right: 14px; }
+            .lang-btn { padding: 6px 11px; font-size: 10px; }
+        }
+
+        /* ── Narrow phones (≤ 480px) ── */
+        @media (max-width: 480px) {
+            .hero-overlay h1 { font-size: 30px; }
+            .hero-overlay h1 .small { font-size: 13px; }
+            .info-item { flex: 0 0 calc(50% - 9px); }
+            /* Keep 3-col thumbnails on small phones too — preserves overview */
+            .three-col, .four-col, .five-col, .six-col, .nine-col { grid-template-columns: 1fr 1fr 1fr; }
+            .two-col { grid-template-columns: 1fr; }
+            .stat-strip, .pipeline, .tools-grid, .pbr-grid { grid-template-columns: 1fr 1fr; }
+            .section-text h2 { font-size: 20px; }
+            .section-text.tight h2 { font-size: 17px; }
+            .viewer-stage { aspect-ratio: 3 / 4; }
         }
 
         /* ── Lang switcher ── */
@@ -828,7 +913,7 @@
         <h2 class="t-en">5 contextual <em>frames</em></h2>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px;">
+    <div class="five-col">
         <div class="frame"><img src="01_Preproduction/Concept/concepts_fullbody/E1_lab.webp" alt="E1 Lab"><div class="frame-label"><span>E1</span>Lab</div></div>
         <div class="frame"><img src="01_Preproduction/Concept/concepts_fullbody/E2_zaun_street.webp" alt="E2 Zaun Street"><div class="frame-label"><span>E2</span>Zaun</div></div>
         <div class="frame"><img src="01_Preproduction/Concept/concepts_fullbody/E3_office_dramatic.webp" alt="E3 Office"><div class="frame-label"><span>E3</span>Office</div></div>
@@ -845,7 +930,7 @@
         <p class="t-en">The character is assembled modularly — head, body, coat, jacket, shirt, pants, boots, hands, monocle, eyes. Each part is sculpted separately and later linked into the master scene. This gives flexibility for regeneration (swap a coat, change boots).</p>
     </div>
 
-    <div class="five-col" style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px;">
+    <div class="five-col">
         <div class="frame"><img src="02_Production/Characters/CLAY-3d/face.webp" alt="Face clay"><div class="frame-label"><span>01</span><span class="t-ru">Голова</span><span class="t-en">Head</span></div></div>
         <div class="frame"><img src="02_Production/Characters/CLAY-3d/body.webp" alt="Body clay"><div class="frame-label"><span>02</span><span class="t-ru">Тело</span><span class="t-en">Body</span></div></div>
         <div class="frame"><img src="02_Production/Characters/CLAY-3d/coat.webp" alt="Coat clay"><div class="frame-label"><span>03</span><span class="t-ru">Плащ</span><span class="t-en">Coat</span></div></div>
@@ -1023,7 +1108,7 @@
         <h2 class="t-en">4 <em>lighting setups</em></h2>
     </div>
 
-    <div class="four-col">
+    <div class="four-col quad">
         <div class="frame"><img src="05_Rendering/Lighting/01_cyan_rim.webp" alt="Cyan rim"><div class="frame-label"><span>L01</span>Cyan Rim</div></div>
         <div class="frame"><img src="05_Rendering/Lighting/02_warm_key.webp" alt="Warm key"><div class="frame-label"><span>L02</span>Warm Key</div></div>
         <div class="frame"><img src="05_Rendering/Lighting/03_top_chiaroscuro.webp" alt="Chiaroscuro"><div class="frame-label"><span>L03</span>Chiaroscuro</div></div>
